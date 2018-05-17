@@ -54,6 +54,10 @@ THE SOFTWARE. */
             this.el_.parentNode.className += ' vjs-youtube-mobile';
           }
 
+          if(_isOnMobile && options.nativeControlsForTouch === true) {
+            this.el_.parentNode.className += ' vjs-controls-disabled';
+          }
+
           if (Youtube.isApiReady) {
             this.initYTPlayer();
           } else {
@@ -138,7 +142,9 @@ THE SOFTWARE. */
       }
 
       if (typeof this.options_.ytControls !== 'undefined') {
-        playerVars.controls = this.options_.ytControls;
+        if (_isOnMobile && this.options_.nativeControlsForTouch) {
+          playerVars.controls = this.options_.ytControls;
+        }
       }
 
       if (typeof this.options_.disablekb !== 'undefined') {
@@ -619,7 +625,9 @@ THE SOFTWARE. */
     reset: function() {},
 
     supportsFullScreen: function() {
-      return true;
+      return document.webkitFullscreenEnabled ||
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled;
     },
 
     // Tries to get the highest resolution thumbnail available for the video
