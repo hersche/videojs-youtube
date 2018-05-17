@@ -26,6 +26,6 @@
     "karma.conf.js"
   ],
   "dependencies": {
-    "video.js": "^5.0.0"
+    "video.js": "^6.7.3"
   }
 }
